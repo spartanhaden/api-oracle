@@ -1,0 +1,149 @@
+{
+	"library": "hnswlib",
+	"supported_distances": [
+		{
+			"distance": "Squared L2",
+			"parameter": "l2",
+			"equation": "d = sum((Ai-Bi)^2)"
+		},
+		{
+			"distance": "Inner product",
+			"parameter": "ip",
+			"equation": "d = 1.0 - sum(Ai*Bi)"
+		},
+		{
+			"distance": "Cosine similarity",
+			"parameter": "cosine",
+			"equation": "d = 1.0 - sum(Ai*Bi) / sqrt(sum(Ai*Ai) * sum(Bi*Bi))"
+		}
+	],
+	"api_methods": [
+		{
+			"method": "hnswlib.Index",
+			"description": "Creates a non-initialized index an HNSW in space 'space' with integer dimension 'dim'.",
+			"parameters": [
+				"space",
+				"dim"
+			]
+		},
+		{
+			"method": "init_index",
+			"description": "Initializes the index from with no elements.",
+			"parameters": [
+				"max_elements",
+				"M",
+				"ef_construction",
+				"random_seed",
+				"allow_replace_deleted"
+			]
+		},
+		{
+			"method": "add_items",
+			"description": "Inserts the data(numpy array of vectors, shape:'N*dim') into the structure.",
+			"parameters": [
+				"data",
+				"ids",
+				"num_threads",
+				"replace_deleted"
+			]
+		},
+		{
+			"method": "mark_deleted",
+			"description": "Marks the element as deleted, so it will be omitted from search results.",
+			"parameters": [
+				"label"
+			]
+		},
+		{
+			"method": "unmark_deleted",
+			"description": "Unmarks the element as deleted, so it will be not be omitted from search results.",
+			"parameters": []
+		},
+		{
+			"method": "resize_index",
+			"description": "Changes the maximum capacity of the index.",
+			"parameters": [
+				"new_size"
+			]
+		},
+		{
+			"method": "set_ef",
+			"description": "Sets the query time accuracy/speed trade-off, defined by the 'ef' parameter.",
+			"parameters": [
+				"ef"
+			]
+		},
+		{
+			"method": "knn_query",
+			"description": "Make a batch query for 'k' closest elements for each element of the data.",
+			"parameters": [
+				"data",
+				"k",
+				"num_threads",
+				"filter"
+			]
+		},
+		{
+			"method": "load_index",
+			"description": "Loads the index from persistence to the uninitialized index.",
+			"parameters": [
+				"path_to_index",
+				"max_elements",
+				"allow_replace_deleted"
+			]
+		},
+		{
+			"method": "save_index",
+			"description": "Saves the index from persistence.",
+			"parameters": [
+				"path_to_index"
+			]
+		},
+		{
+			"method": "set_num_threads",
+			"description": "Set the default number of cpu threads used during data insertion/querying.",
+			"parameters": [
+				"num_threads"
+			]
+		},
+		{
+			"method": "get_items",
+			"description": "Returns a numpy array (shape:'N*dim') of vectors that have integer identifiers specified in 'ids' numpy vector (shape:'N').",
+			"parameters": [
+				"ids"
+			]
+		},
+		{
+			"method": "get_ids_list",
+			"description": "Returns a list of all elements' ids.",
+			"parameters": []
+		},
+		{
+			"method": "get_max_elements",
+			"description": "Returns the current capacity of the index",
+			"parameters": []
+		},
+		{
+			"method": "get_current_count",
+			"description": "Returns the current number of element stored in the index",
+			"parameters": []
+		}
+	],
+	"read_only_properties": [
+		"space",
+		"dim",
+		"M",
+		"ef_construction",
+		"max_elements",
+		"element_count"
+	],
+	"read_write_properties": [
+		"ef",
+		"num_threads"
+	],
+	"examples": [
+		"Creating index, inserting elements, searching, serialization/deserialization",
+		"Filtering during the search with a boolean function",
+		"Deleting the elements and reusing the memory of the deleted elements for newly added elements"
+	]
+}
